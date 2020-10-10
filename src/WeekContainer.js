@@ -8,7 +8,7 @@ class WeekContainer extends React.Component
     state = {
         fullData: [],
         dailyData: [],
-        degreeType: "fahrenheit"
+        degreeType: "celsius"
     }
 
     updateForecastDegree = event => {
