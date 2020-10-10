@@ -1,26 +1,35 @@
 import React from 'react';
 import moment from 'moment';
 
-const DayCard = ({reading}) => {
-    let newDate = new Date();
-    const weekday = reading.dt * 1000
-    newDate.setTime(weekday)
+class DayCard extends React.Component
+{
+    render()
+    {
+        //Props: day, key, degreeType
+        let newDate = new Date();
+        const weekday = this.props.day.dt * 1000
+        newDate.setTime(weekday)
 
-    const imgURL = `owf owf-${reading.weather[0].id} owf-5x`
+        const fahrenheit = Math.round(this.props.day.main.temp)
+        const celsius = Math.round((fahrenheit - 32) * 5/9)
 
-    return(
-        <div className="col-sm-2">
+        const imgURL = `owf owf-${this.props.day.weather[0].id} owf-5x`
+
+        return(
             <div className="card">
-                <h3 className="card-title">{moment(newDate).format('dddd')}</h3>
-                <p className="text-muted">{moment(newDate).format('MMMM Do, h:mm a')}</p>
+                <h5 className="card-header">{moment(newDate).format('dddd')}</h5>
                 <i className={imgURL}></i>
-                <h2>{Math.round(reading.main.temp)} °F</h2>
+                <h2>{this.props.degreeType === "celsius" ? celsius + "°C" : fahrenheit + "°F"}</h2>
                 <div className="card-body">
-                    <p className="card-text">{reading.weather[0].description}</p>
+                    <p className="card-text">{this.props.day.weather[0].description}</p>
                 </div>
+                <div className="card-footer">
+                    <p className="text-muted my-auto">{moment(newDate).format('MMMM Do, h:mm a')}</p>
+                </div>
+                
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default DayCard;

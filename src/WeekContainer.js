@@ -1,12 +1,20 @@
 import React from 'react';
 import apiConfig from './apiKeys';
 import DayCard from './DayCard';
+import DegreeToggle from './DegreeToggle';
 
 class WeekContainer extends React.Component
 {
     state = {
-        fulData: [],
-        dailyData: []
+        fullData: [],
+        dailyData: [],
+        degreeType: "fahrenheit"
+    }
+
+    updateForecastDegree = event => {
+        this.setState({
+            degreeType: event.target.value
+        }, () => console.log(this.state))
     }
 
     componentDidMount = () => {
@@ -23,15 +31,16 @@ class WeekContainer extends React.Component
     }
 
     formatDayCards = () => {
-        return this.state.dailyData.map((reading, index) => <DayCard reading={reading} key={index} />)
+        return <div className="card-group">{this.state.dailyData.map((reading, index) => <DayCard day={reading} key={index} degreeType={this.state.degreeType} />)}</div>
     }
 
     render()
     {
         return(
             <div className="container">
-                <h1 className="display-1 jumbtron">5-Day Forecast</h1>
+                <h1 className="display-1 jumbtron">React Forecast</h1>
                 <h5 className="diplay-5 text-muted">Fareham, UK</h5>
+                <DegreeToggle degreeType={this.state.degreeType} updateForecastDegree={this.updateForecastDegree}/>
                 <div className="row justify-content-center">
                     {this.formatDayCards()}
                 </div>
