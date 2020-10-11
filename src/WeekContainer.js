@@ -2,13 +2,14 @@ import React from 'react';
 import apiConfig from './apiKeys';
 import DayCard from './DayCard';
 import DegreeToggle from './DegreeToggle';
-import { Line } from 'react-chartjs-2';
+import Chart from './Chart';
 
 class WeekContainer extends React.Component
 {
     state = {
         fullData: [],
         dailyData: [],
+        chartData: [],
         degreeType: "celsius"
     }
 
@@ -23,10 +24,20 @@ class WeekContainer extends React.Component
         fetch(weatherURL)
         .then(res => res.json())
         .then(data => {
-            const dailyData = data.list.filter(reading => reading.dt_txt.includes("12:00:00"))
+            const dailyData = data.list.filter(reading => reading.dt_txt.includes("12:00:00"));
+            let chartData = [];
+
+            data.list.forEach(element => {
+                chartData.push({
+                    time : element.dt,
+                    temp : element.main.temp
+                });
+            });
+
             this.setState({
                 fullData: data.list,
-                dailyData: dailyData
+                dailyData: dailyData,
+                chartData: chartData
             }, () => console.log(this.state))
         })
     }
@@ -45,7 +56,9 @@ class WeekContainer extends React.Component
                 <div className="row justify-content-center">
                     {this.formatDayCards()}
                 </div>
-                <Line />
+                <div className="row justify-content-center">
+                    <Chart data={this.state.chartData} />
+                </div>
             </div>
         )
     }
