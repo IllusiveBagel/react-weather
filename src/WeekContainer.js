@@ -2,6 +2,7 @@ import React from 'react';
 import apiConfig from './apiKeys';
 import DayCard from './DayCard';
 import DegreeToggle from './DegreeToggle';
+import { Line } from 'react-chartjs-2';
 
 class WeekContainer extends React.Component
 {
@@ -18,11 +19,11 @@ class WeekContainer extends React.Component
     }
 
     componentDidMount = () => {
-        const weatherURL = `http://api.openweathermap.org/data/2.5/forecast?zip=11102&units=imperial&APPID=${apiConfig.owmKey}`
+        const weatherURL = `http://api.openweathermap.org/data/2.5/forecast?id=2649692&units=imperial&APPID=${apiConfig.owmKey}`
         fetch(weatherURL)
         .then(res => res.json())
         .then(data => {
-            const dailyData = data.list.filter(reading => reading.dt_txt.includes("18:00:00"))
+            const dailyData = data.list.filter(reading => reading.dt_txt.includes("12:00:00"))
             this.setState({
                 fullData: data.list,
                 dailyData: dailyData
@@ -44,6 +45,7 @@ class WeekContainer extends React.Component
                 <div className="row justify-content-center">
                     {this.formatDayCards()}
                 </div>
+                <Line />
             </div>
         )
     }
