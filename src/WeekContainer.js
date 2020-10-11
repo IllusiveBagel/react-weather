@@ -57,7 +57,7 @@ class WeekContainer extends React.Component
                     {this.formatDayCards()}
                 </div>
                 <div className="row justify-content-center">
-                    <Chart data={this.state.chartData} />
+                    <Chart data={this.state.chartData} degreeType={this.state.degreeType}/>
                 </div>
             </div>
         )

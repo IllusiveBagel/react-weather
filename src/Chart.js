@@ -7,13 +7,18 @@ class Chart extends React.Component
     render()
     {
         
-        // Props data
+        // Props data, degreeType
+
         const labels = [];
         const dataSet = [];
         
         this.props.data.forEach(element => {
             labels.push(moment(element.time * 1000).format('ddd h:mm a'));
-            dataSet.push(element.temp);
+
+            const fahrenheit = Math.round(element.temp)
+            const celsius = Math.round((fahrenheit - 32) * 5/9)
+
+            dataSet.push(this.props.degreeType === "celsius" ? celsius: fahrenheit);
         });
         
         const chartData = 
@@ -25,7 +30,7 @@ class Chart extends React.Component
                 data : dataSet
             }]
         }
-        
+         
         const legend = 
         {
             display : false
