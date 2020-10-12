@@ -1,5 +1,5 @@
 import React from 'react';
-import apiConfig from './apiKeys';
+import apiConfig from '../apiKeys';
 import DayCard from './DayCard';
 import DegreeToggle from './DegreeToggle';
 import Chart from './Chart';

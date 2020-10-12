@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './css/App.css';
-import WeekContainer from './WeekContainer';
+import WeekContainer from './Components/WeekContainer';
 
 class App extends Component
 {
