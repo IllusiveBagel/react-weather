@@ -37,7 +37,7 @@ class Chart extends React.Component
         }
         
         return(
-            <Line height="100%" data={chartData} legend={legend} />
+            <Line height={100} data={chartData} legend={legend} />
         )
     }
 }
